@@ -1,23 +1,39 @@
+
+
 import logo from './logo.svg';
 import './App.css';
+import HubCategoryPage from "./pages/HubCategoryPage";
+import { QueryClient, QueryClientProvider } from "react-query";
+import {
+  BrowserRouter as Router,
+  Route,
+  Redirect,
+  Routes
+} from 'react-router-dom';
+import NewHubMaster from './components/NewHubMaster';
+import MainNavigation from './shared/componenets/Navigation/MainNavigation';
 
 function App() {
+  const queryClient = new QueryClient();
+
+  let routes;
+    routes = (
+      <Routes>
+        <Route exact path='/' element={< HubCategoryPage />}></Route>  
+        <Route exact path='/hubmaster' element={< NewHubMaster />}></Route>
+      </Routes>
+    );
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div  style={{ padding: '15px 15px 15px 15px'}}>
+      <QueryClientProvider client={queryClient}>
+      <Router>
+        <MainNavigation />
+        <main>{routes}</main>
+      </Router>
+      </QueryClientProvider>
+      </div>
     </div>
   );
 }
