@@ -1,5 +1,6 @@
 import * as React from "react";
 // import Modal from '@mui/material/Modal'
+import { useQueryClient  } from "react-query";
 import * as Styles from "../shared/mystyle";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
@@ -35,6 +36,7 @@ import CustomCheckbox from "../shared/UI/CustomCheckbox";
 export const SUPERVISOR_API_KEY = "SUPERVISOR_API_KEY";
 
 const HubCategoryList = (props) => {
+  const queryClient = useQueryClient()
   const defaultValues = {
     name: "",
     description: "",
@@ -76,6 +78,7 @@ const HubCategoryList = (props) => {
     setEditPopup(true);
     setHubCategoryId(id);
     refetch();
+    queryClient.invalidateQueries(SUPERVISOR_API_KEY)
   };
   const cancelEditHandler = () => {
     setEditPopup(false);
