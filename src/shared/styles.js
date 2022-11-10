@@ -162,5 +162,45 @@ export const PRIMARY = {
     color: GRAY[1400],
     fontSize: '14px',
     height: "40px"
+  },
+  cancelButton: {
+    borderColor: PRIMARY[100],
+    color: PRIMARY[100],
+    fontWeight: FONT_STYLES.WEIGHT_600,
+    fontFamily: FONT_STYLES.SANS,
+    lineHeight: "19px",
+    padding:'10px 29.5px 9px 29.5px',
+    boxShadow: 'none',
+    '&:hover': {
+      cursor: 'pointer',
+      borderColor: PRIMARY[100],
+      boxShadow: 'none'
+    },
+    textTransform: 'none'
+  },
+  submitButton: {
+    marginLeft: "23.5px !important",
+    backgroundColor: PRIMARY[100],
+    boxShadow: 'none',
+    fontWeight: FONT_STYLES.WEIGHT_600,
+    fontFamily: FONT_STYLES.SANS,
+    lineHeight: "19px",
+    padding:'11px 29.5px 10px 29.5px',
+    '&:hover': {
+      cursor: 'pointer',
+      backgroundColor: PRIMARY[100],
+      boxShadow: 'none'
+    },
+    textTransform: 'none',
+    gap: "8px"
+  },
+  textInputStyle: {
+    width: '240px',
+    input: {
+      '&::placeholder': {
+        fontSize: '14px',
+        color: GRAY[1700]
+      }
+    }
   }
 }

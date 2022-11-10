@@ -21,6 +21,7 @@ function App() {
       <Routes>
         <Route exact path='/' element={< HubCategoryPage />}></Route>  
         <Route exact path='/hubmaster' element={< NewHubMaster />}></Route>
+        <Route exact path='/hubcategory' element={< HubCategoryPage />}></Route>
       </Routes>
     );
 

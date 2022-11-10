@@ -29,6 +29,9 @@ export const styles={
   formControlStyle: {
     m: 1.5, minWidth: 120
   },
+  formControlCheckBoxStyle: {
+    m: 1.5, width:'240px',marginTop: '25px'
+  },
   placeHolderDisabled: {
     input: {
       '&::placeholder': {

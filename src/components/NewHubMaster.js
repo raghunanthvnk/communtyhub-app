@@ -1,11 +1,11 @@
 import React from "react";
-import ControlPointIcon from "@mui/icons-material/ControlPoint";
 import { PRIMARY, COLORS, styles } from "../shared/styles";
-import Modal from "../shared/UI/Modal/MaterialModal";
+import Button from "@mui/material/Button";
 import CustomButton from "../shared/UI/CustomButton/CustomButton";
 import CustomTextInput from "../shared/UI/CustomTextInput/CustomTextInput";
 import CustomCheckbox from "../shared/UI/CustomCheckbox";
 import CustomDropDown from "../shared/UI/CustomDropDown/CustomDropDown";
+import { isEmpty } from "lodash";
 import {
   createHubMaster,
   COUNTRIES,
@@ -14,34 +14,112 @@ import {
   TIMEZONES,
   TIMES,
 } from "../services/hubmaster-service";
+import { getHubCategoryList } from "../services/hubcategory-service";
+import {useNavigate} from 'react-router-dom';
 
 const NewHubMaster = (props) => {
+  const navigate = useNavigate();
   const defaultValues = {
     name: "",
     code: "",
     countrycode: "",
+    countrycodeError: "",
     citycode: "",
+    citycodeError: "",
     othercity: "",
     address: "",
     pincode: "",
     slotmasterid: "",
+    slotmasteridError: "",
     timezoneid: "",
+    timezoneidError: "",
     isbookingenabled: false,
-    bookingstarttimeid: 0,
-    bookingendtimeid: 0,
+    bookingstarttimeid: "",
+    bookingstarttimeidError: "",
+    bookingendtimeid: "",
+    bookingendtimeidError: "",
     updatedby: "",
     createdby: "",
     hubcategoryid: "",
+    hubcategoryidError: "",
   };
+
   const [formdata, setformdata] = React.useState(defaultValues);
-  const [createPopup, setCreatePopup] = React.useState(false);
-  const cancelCreateHandler = () => {
-    setCreatePopup(false);
+  const [categoryList, setCategoryList] = React.useState([]);
+  React.useEffect(() => {
+    getHubCategoryList().then((response) => {
+      const hubCategoryList = response;
+      const options = hubCategoryList.categoryList?.map(function (row) {
+        // This function defines the "mapping behaviour".
+        // data from each "row" from your columns array is mapped to a
+        // corresponding item in the new "options" array
+        return { value: row.id, label: row.name };
+      });
+      setCategoryList(options);
+    });
+  }, []);
+
+  const validateFields = () => {
+    const errors = {};
+    checkErrors(
+      formdata,
+      errors,
+      "countrycode",
+      "countrycodeError",
+      "Country is empty"
+    );
+    checkErrors(formdata, errors, "citycode", "citycodeError", "City is empty");
+    checkErrors(
+      formdata,
+      errors,
+      "slotmasterid",
+      "slotmasteridError",
+      "Slot Master Type is empty"
+    );
+    checkErrors(
+      formdata,
+      errors,
+      "timezoneid",
+      "timezoneidError",
+      "TimeZone Name is empty"
+    );
+    checkErrors(
+      formdata,
+      errors,
+      "bookingstarttimeid",
+      "bookingstarttimeidError",
+      "Booking Start Time is empty"
+    );
+    checkErrors(
+      formdata,
+      errors,
+      "bookingendtimeid",
+      "bookingendtimeidError",
+      "Booking End Time is empty"
+    );
+    checkErrors(
+      formdata,
+      errors,
+      "hubcategoryid",
+      "hubcategoryidError",
+      "Hub Category Id is empty"
+    );
+    setErrors(errors);
+    return errors;
   };
-  const CreateHandler = () => {
-    setCreatePopup(false);
-    createHubMaster(formdata);
-    setformdata(defaultValues);
+  const checkErrors = (formValues, errors, fieldName, errField, errMsg) => {
+    if (isEmpty(formValues[fieldName])) {
+      errors[errField] = errMsg;
+    } else {
+      errors[errField] = "";
+    }
+    return errors;
+  };
+  const setErrors = (errors) => {
+    setformdata({
+      ...formdata,
+      ...errors,
+    });
   };
   const handleCreateInputChange = (e) => {
     const { name, value } = e.target;
@@ -50,17 +128,29 @@ const NewHubMaster = (props) => {
       [name]: value,
     });
   };
-
+  const isAllValuesEmpty = (object) => {
+    return !Object.values(object).some(v => v)
+  }
   const placeSubmitHandler = async (event) => {
-    alert('submitted')
+    const errors = validateFields();
+    console.log(errors);
+    if(isAllValuesEmpty(errors)){
+       createHubMaster(formdata).then((response) => {
+        navigate('/hubcategory');
+       });
+
+    }
     event.preventDefault();
   };
   return (
+    <React.Fragment>
+    <h2 > Add HUB MASTER </h2>
     <form className="place-form" onSubmit={placeSubmitHandler}>
       <div>
         <CustomTextInput
           name={"name"}
           label={"Name"}
+          textStyles={styles.textInputStyle}
           value={formdata.name}
           onChange={handleCreateInputChange}
           size={"small"}
@@ -71,6 +161,7 @@ const NewHubMaster = (props) => {
         <CustomTextInput
           name={"code"}
           label={"Code"}
+          textStyles={styles.textInputStyle}
           value={formdata.description}
           onChange={handleCreateInputChange}
           size={"small"}
@@ -80,7 +171,7 @@ const NewHubMaster = (props) => {
       </div>
       <div>
         <CustomDropDown
-          name={"Country"}
+          name={"countrycode"}
           label={"Country"}
           value={formdata.countrycode}
           options={COUNTRIES}
@@ -89,10 +180,11 @@ const NewHubMaster = (props) => {
           selectStyles={styles.dropDownSelectStyles}
           menuItemStyles={styles.menuItemStyles}
           size={"small"}
+          error={formdata.countrycodeError}
           isRequired={true}
         />
         <CustomDropDown
-          name={"City"}
+          name={"citycode"}
           label={"City"}
           value={formdata.citycode}
           options={CITIES}
@@ -102,12 +194,14 @@ const NewHubMaster = (props) => {
           menuItemStyles={styles.menuItemStyles}
           size={"small"}
           isRequired={true}
+          error={formdata.citycodeError}
         />
       </div>
       <div>
         <CustomTextInput
           name={"address"}
           label={"Address"}
+          textStyles={styles.textInputStyle}
           value={formdata.address}
           onChange={handleCreateInputChange}
           size={"small"}
@@ -117,6 +211,7 @@ const NewHubMaster = (props) => {
         <CustomTextInput
           name={"pincode"}
           label={"PinCode"}
+          textStyles={styles.textInputStyle}
           value={formdata.pincode}
           onChange={handleCreateInputChange}
           size={"small"}
@@ -126,7 +221,7 @@ const NewHubMaster = (props) => {
       </div>
       <div>
         <CustomDropDown
-          name={"slotmaster"}
+          name={"slotmasterid"}
           label={"Slot Master"}
           value={formdata.slotmasterid}
           options={SLOTMASTERS}
@@ -136,9 +231,10 @@ const NewHubMaster = (props) => {
           menuItemStyles={styles.menuItemStyles}
           size={"small"}
           isRequired={true}
+          error={formdata.slotmasteridError}
         />
         <CustomDropDown
-          name={"timezone"}
+          name={"timezoneid"}
           label={"Time Zone"}
           value={formdata.timezoneid}
           options={TIMEZONES}
@@ -148,6 +244,7 @@ const NewHubMaster = (props) => {
           menuItemStyles={styles.menuItemStyles}
           size={"small"}
           isRequired={true}
+          error={formdata.timezoneidError}
         />
       </div>
 
@@ -163,6 +260,7 @@ const NewHubMaster = (props) => {
           menuItemStyles={styles.menuItemStyles}
           size={"small"}
           isRequired={true}
+          error={formdata.bookingstarttimeidError}
         />
         <CustomDropDown
           name={"bookingendtimeid"}
@@ -175,28 +273,45 @@ const NewHubMaster = (props) => {
           menuItemStyles={styles.menuItemStyles}
           size={"small"}
           isRequired={true}
+          error={formdata.bookingendtimeidError}
         />
       </div>
       <div>
+        <CustomDropDown
+          name={"hubcategoryid"}
+          label={"Hub Category List"}
+          value={formdata.hubcategoryid}
+          options={categoryList}
+          onChange={handleCreateInputChange}
+          placeholderStyles={styles.dropDownPlaceHolder}
+          selectStyles={styles.dropDownSelectStyles}
+          menuItemStyles={styles.menuItemStyles}
+          size={"small"}
+          isRequired={true}
+          error={formdata.hubcategoryidError}
+        />
         <CustomCheckbox
           label="Is Booking Enabled"
           value={formdata.isbookingenabled}
           onChange={handleCreateInputChange}
         />
+        </div>
+        <div>
+        
       </div>
       <div>
-        <CustomButton
-          data-testid="catgory-delete"
-          label="Submit"
+        <Button
+          disableRipple
           variant="contained"
-          color={PRIMARY[100]}
-          style={{
-            float: "right",
-            marginRight: "16px",
-          }}
-        />
+          data-testid="submit"
+          sx={styles.submitButton}
+          type="submit"
+        >
+          Submit
+        </Button>
       </div>
     </form>
+    </React.Fragment>
   );
 };
 
