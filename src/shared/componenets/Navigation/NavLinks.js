@@ -19,6 +19,11 @@ const NavLinks = props => {
           Hub Master
         </NavLink>
       </li>
+      <li>
+        <NavLink to="/uploadappointments">
+          Upload Appointments
+        </NavLink>
+      </li>
     </ul>
   );
 };

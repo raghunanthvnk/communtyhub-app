@@ -12,6 +12,7 @@ import {
 } from 'react-router-dom';
 import NewHubMaster from './components/NewHubMaster';
 import MainNavigation from './shared/componenets/Navigation/MainNavigation';
+import UploadAppointmentsPage from './pages/UploadAppointmentsPage';
 
 function App() {
   const queryClient = new QueryClient();
@@ -22,6 +23,7 @@ function App() {
         <Route exact path='/' element={< HubCategoryPage />}></Route>  
         <Route exact path='/hubmaster' element={< NewHubMaster />}></Route>
         <Route exact path='/hubcategory' element={< HubCategoryPage />}></Route>
+        <Route exact path='/uploadappointments' element={< UploadAppointmentsPage />}></Route>
       </Routes>
     );
 

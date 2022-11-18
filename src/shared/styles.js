@@ -194,6 +194,23 @@ export const PRIMARY = {
     textTransform: 'none',
     gap: "8px"
   },
+  UploadAppointmentssubmitButton: {
+    marginLeft: "23.5px !important",
+    backgroundColor: PRIMARY[100],
+    boxShadow: 'none',
+    fontWeight: FONT_STYLES.WEIGHT_600,
+    fontFamily: FONT_STYLES.SANS,
+    lineHeight: "19px",
+    float:'right',
+    padding:'11px 29.5px 10px 29.5px',
+    '&:hover': {
+      cursor: 'pointer',
+      backgroundColor: PRIMARY[100],
+      boxShadow: 'none'
+    },
+    textTransform: 'none',
+    gap: "8px"
+  },
   textInputStyle: {
     width: '240px',
     input: {

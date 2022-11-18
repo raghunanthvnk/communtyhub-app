@@ -1,6 +1,7 @@
 export const API_PREFIX = {
     HUBCATEGORY_API: 'api/HubCategory/',
-    HUBMASTER_API:'api/HubMaster'
+    HUBMASTER_API:'api/HubMaster',
+    UPLOADAFILE:'api/Upload/'
   }
 
 export const API_URLS = {
@@ -19,4 +20,7 @@ export const API_URLS = {
     CREATEHUBMASTER:() => {
       return API_PREFIX.HUBMASTER_API
     },
+    UPLOADAPPOINTMENTS:() => {
+      return API_PREFIX.UPLOADAFILE+'xls'
+    }
 }
