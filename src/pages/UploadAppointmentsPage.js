@@ -6,6 +6,7 @@ import { API_URLS } from "../shared/constants";
 import axios from "axios";
 import { styles } from "../shared/styles";
 import Snackbar from "@mui/material/Snackbar";
+import FileUploadList from '../components/fileUploadList'
 
 const UploadAppointmentsPage = (props) => {
   const [file, setFile] = React.useState();
@@ -127,6 +128,7 @@ const UploadAppointmentsPage = (props) => {
           </div>
         </form>
       </Card>
+      <FileUploadList></FileUploadList>
     </React.Fragment>
   );
 };

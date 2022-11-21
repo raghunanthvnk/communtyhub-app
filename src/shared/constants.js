@@ -22,5 +22,8 @@ export const API_URLS = {
     },
     UPLOADAPPOINTMENTS:() => {
       return API_PREFIX.UPLOADAFILE+'xls'
+    },
+    GETFILEUPLOADLIST:()=>{
+      return API_PREFIX.UPLOADAFILE
     }
 }
