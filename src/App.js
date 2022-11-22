@@ -13,6 +13,7 @@ import {
 import NewHubMaster from './components/NewHubMaster';
 import MainNavigation from './shared/componenets/Navigation/MainNavigation';
 import UploadAppointmentsPage from './pages/UploadAppointmentsPage';
+import UsersPage from './pages/UsersPage';
 
 function App() {
   const queryClient = new QueryClient();
@@ -24,6 +25,7 @@ function App() {
         <Route exact path='/hubmaster' element={< NewHubMaster />}></Route>
         <Route exact path='/hubcategory' element={< HubCategoryPage />}></Route>
         <Route exact path='/uploadappointments' element={< UploadAppointmentsPage />}></Route>
+        <Route exact path='/users' element={< UsersPage />}></Route>
       </Routes>
     );
 

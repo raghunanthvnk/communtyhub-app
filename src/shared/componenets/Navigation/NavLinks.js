@@ -24,6 +24,11 @@ const NavLinks = props => {
           Upload Appointments
         </NavLink>
       </li>
+      <li>
+        <NavLink to="/users">
+          Users
+        </NavLink>
+      </li>
     </ul>
   );
 };

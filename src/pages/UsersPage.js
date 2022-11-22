@@ -1,24 +1,29 @@
 import * as React from "react";
-import getFileUploadList from "../services/file-service";
+import {
+    getUsersList
+  } from "../services/user-service";
 import Card from "../shared/UI/Card/Card";
 import _ from "lodash";
-import TableComponent from "./tableComponent";
+import TableComponent from '../components/tableComponent'
+import Avatar from '../shared/UI/Avatar'
 
-const FileUploadList = (props) => {
+const UsersPage = (props) => {
   const [data, setData] = React.useState("");
   React.useEffect(() => {
-    getFileUploadList().then((response) => {
-      const fileUploadList = response;
-      const requiredData = fileUploadList?.fileUploadList?.map(function (row) {
+    getUsersList().then((response) => {
+      const usersList = response;
+      const requiredData = usersList?.userList?.map(function (row) {
         // This function defines the "mapping behaviour".
         // data from each "row" from your columns array is mapped to a
         // corresponding item in the new "options" array
         return {
           Id: row._id,
-          FileName: row.filename,
-          Size: row.size,
-          Type: row.type,
-          IsActive: row.isactive,
+          Image : row.image,
+          FirstName: row.first_name,
+          LastName: row.last_name,
+          Email: row.email,
+          UserName: row.username,
+          IsActive : row.isactive
         };
       });
       setData(requiredData);
@@ -41,6 +46,11 @@ const FileUploadList = (props) => {
           if (!isColumnExist) {
             let table_obj = {};
             table_obj["Header"] = table_obj["accessor"] = k;
+            // if(k==='Image'){
+            // let cellProp= 
+            // <Avatar image={`${process.env.REACT_APP_COMMUNITYHUBAPI_URL}/Uploads/${props.image}`} 
+            // alt={props.name} />
+            // }
             resData.push(table_obj);
           }
         });
@@ -63,15 +73,15 @@ const FileUploadList = (props) => {
   return (
     <Card>
       <TableComponent
-        data-testid="myTeamTable"
+        data-testid="myusersTable"
         columns={createColumns(data)}
         data={flattenData(data)}
         DeleteIconreq='true'
-        DownloadIconreq='true'
-        EditIconreq='false'
+        DownloadIconreq='false'
+        EditIconreq='true'
       />
     </Card>
   );
 };
 
-export default FileUploadList;
+export default UsersPage;

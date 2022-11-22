@@ -1,7 +1,8 @@
 export const API_PREFIX = {
     HUBCATEGORY_API: 'api/HubCategory/',
     HUBMASTER_API:'api/HubMaster',
-    UPLOADAFILE:'api/Upload/'
+    UPLOADAFILE_API:'api/Upload/',
+    USER_API:'api/user/'
   }
 
 export const API_URLS = {
@@ -21,9 +22,22 @@ export const API_URLS = {
       return API_PREFIX.HUBMASTER_API
     },
     UPLOADAPPOINTMENTS:() => {
-      return API_PREFIX.UPLOADAFILE+'xls'
+      return API_PREFIX.UPLOADAFILE_API+'xls'
     },
     GETFILEUPLOADLIST:()=>{
-      return API_PREFIX.UPLOADAFILE
+      return API_PREFIX.UPLOADAFILE_API
+    },
+    GETUSERSLIST:()=>{
+      return API_PREFIX.USER_API
+    },
+    EDITUSERDETAILS:(UserId)=>{
+      return API_PREFIX.USER_API+`${UserId}`
+    },
+    DELETEUSER: (UserId) => {
+      return API_PREFIX.USER_API+`${UserId}`
+    },
+    CREATEUSER:() => {
+      return API_PREFIX.USER_API
     }
+    
 }
