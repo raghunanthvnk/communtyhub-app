@@ -2,7 +2,7 @@ import * as React from "react";
 import getFileUploadList from "../services/file-service";
 import Card from "../shared/UI/Card/Card";
 import _ from "lodash";
-import TableComponent from "./tableComponent";
+import TableComponent from "../shared/componenets/Table/tableComponent";
 
 const FileUploadList = (props) => {
   const [data, setData] = React.useState("");

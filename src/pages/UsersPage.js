@@ -2,7 +2,7 @@ import * as React from "react";
 import { getUsersList } from "../services/user-service";
 import Card from "../shared/UI/Card/Card";
 import _ from "lodash";
-import TableComponent from "../components/tableComponent";
+import TableComponent from "../shared/componenets/Table/tableComponent";
 import CustomButton from "../shared/UI/CustomButton/CustomButton";
 import ControlPointIcon from "@mui/icons-material/ControlPoint";
 import { PRIMARY } from "../shared/styles";

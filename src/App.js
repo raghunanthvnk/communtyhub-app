@@ -10,7 +10,7 @@ import {
   Redirect,
   Routes
 } from 'react-router-dom';
-import NewHubMaster from './components/NewHubMaster';
+import HubMasterPage from './pages/HubMasterPage';
 import MainNavigation from './shared/componenets/Navigation/MainNavigation';
 import UploadAppointmentsPage from './pages/UploadAppointmentsPage';
 import UsersPage from './pages/UsersPage';
@@ -22,7 +22,7 @@ function App() {
     routes = (
       <Routes>
         <Route exact path='/' element={< HubCategoryPage />}></Route>  
-        <Route exact path='/hubmaster' element={< NewHubMaster />}></Route>
+        <Route exact path='/hubmaster' element={< HubMasterPage />}></Route>
         <Route exact path='/hubcategory' element={< HubCategoryPage />}></Route>
         <Route exact path='/uploadappointments' element={< UploadAppointmentsPage />}></Route>
         <Route exact path='/users' element={< UsersPage />}></Route>

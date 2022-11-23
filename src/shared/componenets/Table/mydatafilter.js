@@ -2,10 +2,10 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import InputBase from '@mui/material/InputBase'
 import { makeStyles } from '@mui/styles'
-import SearchIcon from '../../assets/images/icons/SearchIcon.svg'
-import closeIconGrey from '../../assets/images/icons/CloseIconGrey.svg'
+import SearchIcon from '../../../assets/images/icons/SearchIcon.svg'
+import closeIconGrey from '../../../assets/images/icons/CloseIconGrey.svg'
 import IconButton from '@mui/material/IconButton'
-import { GRAY } from '../styles'
+import { GRAY } from '../../styles'
 
 const useStyles = makeStyles(() => ({
   search: {

@@ -144,7 +144,7 @@ const NewHubMaster = (props) => {
   };
   return (
     <React.Fragment>
-    <h2 > Add HUB MASTER </h2>
+    <h2> Add Hub</h2>
     <form className="place-form" onSubmit={placeSubmitHandler}>
       <div>
         <CustomTextInput

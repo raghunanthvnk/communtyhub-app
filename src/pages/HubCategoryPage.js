@@ -3,6 +3,7 @@ import ControlPointIcon from "@mui/icons-material/ControlPoint";
 import { PRIMARY } from "../shared/styles";
 import HubCategoryList from "../components/hubcategorylist";
 import Modal from "../shared/UI/Modal/MaterialModal";
+import Card from "../shared/UI/Card/Card";
 import {
   createHubCategory
 } from "../services/hubcategory-service";
@@ -101,6 +102,7 @@ const HubCategoryPage = (props) => {
           />
         </div>
       </Modal>
+      <Card>
       <CustomButton
         data-testid="add-category"
         label="Add Category"
@@ -112,9 +114,11 @@ const HubCategoryPage = (props) => {
         startIcon={<ControlPointIcon style={{ height: 14, width: 14 }} />}
         onClick={() => setCreatePopup(true)}
       />
-      <div style={{ marginTop: "50px" }}>
+      <div style={{ marginTop: "50px" }}></div>
+      <div>
         <HubCategoryList  />
       </div>
+      </Card>
     </React.Fragment>
   );
 };

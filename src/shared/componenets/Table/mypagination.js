@@ -6,8 +6,8 @@ import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeftRounded'
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRightRounded'
 import LastPageIcon from '@mui/icons-material/KeyboardDoubleArrowRightRounded'
 import { makeStyles } from '@mui/styles'
-import { PRIMARY, GRAY } from '../styles'
-import * as Styles from '../mystyle'
+import { PRIMARY, GRAY } from '../../styles'
+import * as Styles from '../../mystyle'
 
 const useStyles = makeStyles(() => ({
   root: {
