@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useMemo, useState } from "react";
+import React, {  useEffect,  useState } from "react";
 import {
   useTable,
   usePagination,
@@ -17,9 +17,7 @@ import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import * as Styles from "../shared/mystyle";
-import { PRIMARY, COLORS } from "../shared/styles";
-import ClockLoader from "react-spinners/ClockLoader";
-import { css } from "@emotion/react";
+import {  COLORS } from "../shared/styles";
 import DownloadIcon from "@mui/icons-material/Download";
 import TablePagination from "@mui/material/TablePagination";
 import MyPagination from "../shared/componenets/mypagination";
@@ -152,11 +150,11 @@ export const TableComponent = ({
                 {row.cells.map((cell, i2) => {
                   if (row.cells[i2].column.Header === "Image") {
                     return ( 
-                      <TableCell key={i2} {...cell.getCellProps()}>
+                      <TableCell key={i2} {...cell.getCellProps()}   style={{ width: "0%" }} >
                         {
                           //cell.render("Cell")
                           //cell.value
-                          <Avatar image={`${process.env.REACT_APP_COMMUNITYHUBAPI_URL}/Uploads/${row.original.Image}`} 
+                          <Avatar image={`${process.env.REACT_APP_COMMUNITYHUBAPI_URL}Images/${row.original.Image}`} 
                           alt={row.original?.name} />
                         }
                       </TableCell>

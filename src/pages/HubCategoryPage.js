@@ -1,6 +1,6 @@
 import React from "react";
 import ControlPointIcon from "@mui/icons-material/ControlPoint";
-import { PRIMARY, COLORS } from "../shared/styles";
+import { PRIMARY } from "../shared/styles";
 import HubCategoryList from "../components/hubcategorylist";
 import Modal from "../shared/UI/Modal/MaterialModal";
 import {

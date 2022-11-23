@@ -1,14 +1,15 @@
 import * as React from "react";
-import {
-    getUsersList
-  } from "../services/user-service";
+import { getUsersList } from "../services/user-service";
 import Card from "../shared/UI/Card/Card";
 import _ from "lodash";
-import TableComponent from '../components/tableComponent'
-import Avatar from '../shared/UI/Avatar'
-
+import TableComponent from "../components/tableComponent";
+import CustomButton from "../shared/UI/CustomButton/CustomButton";
+import ControlPointIcon from "@mui/icons-material/ControlPoint";
+import { PRIMARY } from "../shared/styles";
 const UsersPage = (props) => {
   const [data, setData] = React.useState("");
+  const CreateHandler = (e) => {
+  };
   React.useEffect(() => {
     getUsersList().then((response) => {
       const usersList = response;
@@ -18,12 +19,12 @@ const UsersPage = (props) => {
         // corresponding item in the new "options" array
         return {
           Id: row._id,
-          Image : row.image,
+          Image: row.image,
           FirstName: row.first_name,
           LastName: row.last_name,
           Email: row.email,
           UserName: row.username,
-          IsActive : row.isactive
+          IsActive: row.isactive,
         };
       });
       setData(requiredData);
@@ -46,11 +47,6 @@ const UsersPage = (props) => {
           if (!isColumnExist) {
             let table_obj = {};
             table_obj["Header"] = table_obj["accessor"] = k;
-            // if(k==='Image'){
-            // let cellProp= 
-            // <Avatar image={`${process.env.REACT_APP_COMMUNITYHUBAPI_URL}/Uploads/${props.image}`} 
-            // alt={props.name} />
-            // }
             resData.push(table_obj);
           }
         });
@@ -71,16 +67,32 @@ const UsersPage = (props) => {
     return resData;
   };
   return (
-    <Card>
-      <TableComponent
-        data-testid="myusersTable"
-        columns={createColumns(data)}
-        data={flattenData(data)}
-        DeleteIconreq='true'
-        DownloadIconreq='false'
-        EditIconreq='true'
-      />
-    </Card>
+    <React.Fragment>
+      <Card>
+      <CustomButton
+        data-testid="add-user"
+        label="Add User"
+        variant="contained"
+        color={PRIMARY[100]}
+        style={{
+          float: "left",
+        }}
+        startIcon={<ControlPointIcon style={{ height: 14, width: 14 }} />}
+        onClick={() => CreateHandler()}
+      /> 
+      <div style={{ marginTop: "50px" }}></div>
+
+        <TableComponent
+          data-testid="myusersTable"
+          columns={createColumns(data)}
+          data={flattenData(data)}
+          DeleteIconreq="true"
+          DownloadIconreq="false"
+          EditIconreq="true"
+        />
+      </Card>
+    
+    </React.Fragment>
   );
 };
 
