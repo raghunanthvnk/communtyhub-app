@@ -3,6 +3,9 @@ import getFileUploadList from "../services/file-service";
 import Card from "../shared/UI/Card/Card";
 import _ from "lodash";
 import TableComponent from "../shared/componenets/Table/tableComponent";
+import getAppointmentList from "../services/appointment-service";
+import axios, { AxiosRequestConfig } from "axios";
+import { API_URLS } from "../shared/constants";
 
 const FileUploadList = (props) => {
   const [data, setData] = React.useState("");
@@ -14,7 +17,7 @@ const FileUploadList = (props) => {
         // data from each "row" from your columns array is mapped to a
         // corresponding item in the new "options" array
         return {
-          Id: row._id,
+          id: row._id,
           FileName: row.filename,
           Size: row.size,
           Type: row.type,
@@ -24,6 +27,30 @@ const FileUploadList = (props) => {
       setData(requiredData);
     });
   }, []);
+  const DownloadRecordHandler = async (fileuploadId) => {
+    let url =
+      process.env.REACT_APP_COMMUNITYHUBAPI_URL +
+      API_URLS.GETAPPOINTMENTLIST(fileuploadId);
+      axios({
+        url: url, //your url
+        method: 'GET',
+        responseType: 'blob', // important
+    }).then((response) => {
+        // create file link in browser's memory
+        const href = URL.createObjectURL(response.data);
+    
+        // create "a" HTML element with href to file & click
+        const link = document.createElement('a');
+        link.href = href;
+        link.setAttribute('download', `${Date.now()}.xlsx`); //or any other extension
+        document.body.appendChild(link);
+        link.click();
+    
+        // clean up "a" element & remove ObjectURL
+        document.body.removeChild(link);
+        URL.revokeObjectURL(href);
+    });
+  };
   const flattenData = (data) => {
     if (data) {
       _.forEach(data, (_item, key) => {
@@ -66,9 +93,10 @@ const FileUploadList = (props) => {
         data-testid="myTeamTable"
         columns={createColumns(data)}
         data={flattenData(data)}
-        DeleteIconreq='true'
-        DownloadIconreq='true'
-        EditIconreq='false'
+        DeleteIconreq="true"
+        DownloadIconreq="true"
+        EditIconreq="false"
+        DownloadRecordHandler={DownloadRecordHandler}
       />
     </Card>
   );

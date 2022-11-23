@@ -2,7 +2,8 @@ export const API_PREFIX = {
     HUBCATEGORY_API: 'api/HubCategory/',
     HUBMASTER_API:'api/HubMaster',
     UPLOADAFILE_API:'api/Upload/',
-    USER_API:'api/user/'
+    USER_API:'api/user/',
+    APPOINTMENT_API:'api/appointments/'
   }
 
 export const API_URLS = {
@@ -38,6 +39,8 @@ export const API_URLS = {
     },
     CREATEUSER:() => {
       return API_PREFIX.USER_API
+    },
+    GETAPPOINTMENTLIST:(fileUploadId) => {
+      return API_PREFIX.APPOINTMENT_API+`${fileUploadId}`
     }
-    
 }

@@ -18,7 +18,7 @@ const UsersPage = (props) => {
         // data from each "row" from your columns array is mapped to a
         // corresponding item in the new "options" array
         return {
-          Id: row._id,
+          id: row._id,
           Image: row.image,
           FirstName: row.first_name,
           LastName: row.last_name,
